@@ -1,0 +1,896 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{classification\_with\_augmentation\_only\_fractionation}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} Import necessary modules. Set settings. Import data.}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{epdata\PYZus{}tools} \PY{k}{import} \PY{n}{epdata\PYZus{}main}\PY{p}{,} \PY{n}{get\PYZus{}ep\PYZus{}features}\PY{p}{,} \PY{n}{get\PYZus{}ep\PYZus{}feature\PYZus{}dict}
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{HTML}
+         
+         \PY{k+kn}{from} \PY{n+nn}{Augmentation} \PY{k}{import} \PY{n}{data\PYZus{}augmentation}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{,} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}\PY{p}{,} \PY{n}{naive\PYZus{}bayes}\PY{p}{,} \PY{n}{neighbors}\PY{p}{,} \PY{n}{gaussian\PYZus{}process}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process}\PY{n+nn}{.}\PY{n+nn}{kernels} \PY{k}{import} \PY{n}{RBF}
+         \PY{k+kn}{import} \PY{n+nn}{xgboost}
+         
+         \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}\PY{p}{,} \PY{n}{clear\PYZus{}output}
+         \PY{k+kn}{import} \PY{n+nn}{pdb}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{default}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}compact} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}pickle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/Users/matthewashman/github/MasterProject2018/Data/X\PYZus{}af\PYZus{}compact.pkl}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{n}{X\PYZus{}compact}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}97}]:}                                                CS1-2  \textbackslash{}
+         0  [-903.0, -873.0, -935.0, -941.0, -910.0, -845{\ldots}   
+         1  [-931.0, -896.0, -896.0, -906.0, -858.0, -839{\ldots}   
+         2  [-931.0, -896.0, -896.0, -906.0, -858.0, -839{\ldots}   
+         3  [-985.0, -925.0, -943.0, -919.0, -935.0, -877{\ldots}   
+         4  [-1025.0, -913.0, -885.0, -903.0, -864.0, -947{\ldots}   
+         
+                                                        CS3-4  \textbackslash{}
+         0  [298.0, 292.0, 303.0, 311.0, 299.0, 395.0, 451{\ldots}   
+         1  [339.0, 328.0, 348.0, 328.0, 299.0, 361.0, 349{\ldots}   
+         2  [339.0, 328.0, 348.0, 328.0, 299.0, 361.0, 349{\ldots}   
+         3  [255.0, 287.0, 321.0, 335.0, 396.0, 400.0, 491{\ldots}   
+         4  [262.0, 285.0, 336.0, 349.0, 342.0, 490.0, 506{\ldots}   
+         
+                                                        CS5-6  \textbackslash{}
+         0  [1776.0, 2220.0, 1790.0, -4058.0, -15027.0, -2{\ldots}   
+         1  [1678.0, 2049.0, 2080.0, -1681.0, -11648.0, -1{\ldots}   
+         2  [1678.0, 2049.0, 2080.0, -1681.0, -11648.0, -1{\ldots}   
+         3  [2053.0, 2296.0, -448.0, -11020.0, -19196.0, -{\ldots}   
+         4  [1726.0, 2111.0, 2289.0, -736.0, -11322.0, -19{\ldots}   
+         
+                                                        CS7-8 Coupling Interval  Label  \textbackslash{}
+         0  [6283.0, 6464.0, 5952.0, 4507.0, 3694.0, 2873{\ldots}               340    NaN   
+         1  [6161.0, 6208.0, 5897.0, 4703.0, 3732.0, 2980{\ldots}               340    NaN   
+         2  [6161.0, 6208.0, 5897.0, 4703.0, 3732.0, 2980{\ldots}               340    NaN   
+         3  [5944.0, 5725.0, 4579.0, 3615.0, 2952.0, 1393{\ldots}               330    NaN   
+         4  [6270.0, 6584.0, 6191.0, 4876.0, 3749.0, 2986{\ldots}               330    NaN   
+         
+           Patient S1/S2 Type  
+         0       1    S1   af  
+         1       1    S1   af  
+         2       1    S1   af  
+         3       1    S1   af  
+         4       1    S1   af  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{c+c1}{\PYZsh{} \PYZpc{}matplotlib qt }
+         \PY{c+c1}{\PYZsh{} Create new augmented data for each S2 row of X\PYZus{}compact}
+         \PY{n}{X\PYZus{}compact}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{c+c1}{\PYZsh{} Use for storing augmented\PYZus{}rows in the form of dicts}
+         \PY{n}{augmented\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{X\PYZus{}compact}\PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}compact}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S1/S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{X\PYZus{}compact}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{augmented\PYZus{}row} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n}{augmented\PYZus{}cs12} \PY{o}{=} \PY{n}{data\PYZus{}augmentation}\PY{o}{.}\PY{n}{augment\PYZus{}fractionation}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{augmented\PYZus{}cs34} \PY{o}{=} \PY{n}{data\PYZus{}augmentation}\PY{o}{.}\PY{n}{augment\PYZus{}fractionation}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS3\PYZhy{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
+             \PY{n}{augmented\PYZus{}cs56} \PY{o}{=} \PY{n}{data\PYZus{}augmentation}\PY{o}{.}\PY{n}{augment\PYZus{}fractionation}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS5\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{k+kc}{False}\PY{p}{)}
+             \PY{k}{for} \PY{n}{cs12}\PY{p}{,} \PY{n}{cs34}\PY{p}{,} \PY{n}{cs56} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{augmented\PYZus{}cs12}\PY{p}{,} \PY{n}{augmented\PYZus{}cs34}\PY{p}{,} \PY{n}{augmented\PYZus{}cs56}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{augmented\PYZus{}row} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cs12}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS3\PYZhy{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cs34}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS5\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cs56}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS7\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS7\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S1/S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S1/S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{augmented\PYZus{}row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                 \PY{n}{augmented\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{augmented\PYZus{}row}\PY{p}{)}
+                 
+         \PY{c+c1}{\PYZsh{} for \PYZus{}, row in X\PYZus{}compact[(X\PYZus{}compact[\PYZsq{}S1/S2\PYZsq{}]==\PYZsq{}S2\PYZsq{}) \PYZam{} (X\PYZus{}compact[\PYZsq{}Label\PYZsq{}]==0)].iterrows():}
+             
+         \PY{c+c1}{\PYZsh{}     augmented\PYZus{}row = \PYZob{}\PYZcb{}}
+         \PY{c+c1}{\PYZsh{}     augmented\PYZus{}cs12 = data\PYZus{}augmentation.augment\PYZus{}fractionation(row[\PYZsq{}CS1\PYZhy{}2\PYZsq{}], 1, False)}
+         \PY{c+c1}{\PYZsh{}     augmented\PYZus{}cs34 = data\PYZus{}augmentation.augment\PYZus{}fractionation(row[\PYZsq{}CS3\PYZhy{}4\PYZsq{}], 1, False)}
+         \PY{c+c1}{\PYZsh{}     augmented\PYZus{}cs56 = data\PYZus{}augmentation.augment\PYZus{}fractionation(row[\PYZsq{}CS5\PYZhy{}6\PYZsq{}], 1, False)}
+         \PY{c+c1}{\PYZsh{}     for cs12, cs34, cs56 in zip(augmented\PYZus{}cs12, augmented\PYZus{}cs34, augmented\PYZus{}cs56):}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row = \PYZob{}\PYZcb{}}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}CS1\PYZhy{}2\PYZsq{}] = cs12}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}CS3\PYZhy{}4\PYZsq{}] = cs34}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}CS5\PYZhy{}6\PYZsq{}] = cs56}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}CS7\PYZhy{}8\PYZsq{}] = row[\PYZsq{}CS7\PYZhy{}8\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}Coupling Interval\PYZsq{}] = row[\PYZsq{}Coupling Interval\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}Label\PYZsq{}] = row[\PYZsq{}Label\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}Patient\PYZsq{}] = row[\PYZsq{}Patient\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}S1/S2\PYZsq{}] = row[\PYZsq{}S1/S2\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}Type\PYZsq{}] = row[\PYZsq{}Type\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}row[\PYZsq{}Augmented\PYZsq{}] = 1}
+         \PY{c+c1}{\PYZsh{}         augmented\PYZus{}list.append(augmented\PYZus{}row)}
+             
+         \PY{c+c1}{\PYZsh{}     fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(16,8))}
+         \PY{c+c1}{\PYZsh{}     axes[0][0].plot(row[\PYZsq{}CS1\PYZhy{}2\PYZsq{}])}
+         \PY{c+c1}{\PYZsh{}     axes[0][0].set\PYZus{}title(\PYZsq{}Original CS1\PYZhy{}2\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     axes[0][1].plot(augmented\PYZus{}row[\PYZsq{}CS1\PYZhy{}2\PYZsq{}][0])}
+         \PY{c+c1}{\PYZsh{}     axes[0][1].set\PYZus{}title(\PYZsq{}Augmented CS1\PYZhy{}2\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     axes[1][0].plot(row[\PYZsq{}CS3\PYZhy{}4\PYZsq{}])}
+         \PY{c+c1}{\PYZsh{}     axes[1][0].set\PYZus{}title(\PYZsq{}Original CS3\PYZhy{}4\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     axes[1][1].plot(augmented\PYZus{}row[\PYZsq{}CS3\PYZhy{}4\PYZsq{}][0])}
+         \PY{c+c1}{\PYZsh{}     axes[1][1].set\PYZus{}title(\PYZsq{}Augmented CS3\PYZhy{}4\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     axes[2][0].plot(row[\PYZsq{}CS5\PYZhy{}6\PYZsq{}])}
+         \PY{c+c1}{\PYZsh{}     axes[2][0].set\PYZus{}title(\PYZsq{}Original CS5\PYZhy{}6\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}     axes[2][1].plot(augmented\PYZus{}row[\PYZsq{}CS5\PYZhy{}6\PYZsq{}][0])}
+         \PY{c+c1}{\PYZsh{}     axes[2][1].set\PYZus{}title(\PYZsq{}Augmented CS5\PYZhy{}6\PYZsq{})}
+             
+         \PY{c+c1}{\PYZsh{}     plt.draw()}
+         \PY{c+c1}{\PYZsh{}     plt.waitforbuttonpress()}
+         \PY{c+c1}{\PYZsh{}     plt.close()}
+             
+         
+         \PY{n}{augmented\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{augmented\PYZus{}list}\PY{p}{)}
+         \PY{n}{X\PYZus{}all} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}compact}\PY{p}{,} \PY{n}{augmented\PYZus{}data}\PY{p}{]}\PY{p}{,} \PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}compact}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+452
+607
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{c+c1}{\PYZsh{} of the four segments in CS1\PYZhy{}2, CS3\PYZhy{}4 and CS5\PYZhy{}6.}
+          \PY{n}{X\PYZus{}feature\PYZus{}dicts} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{row} \PY{o+ow}{in} \PY{n}{X\PYZus{}all}\PY{p}{[}\PY{n}{X\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S1/S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{clear\PYZus{}output}\PY{p}{(}\PY{n}{wait}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+              \PY{n}{display}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Extracting Features: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{round}\PY{p}{(}\PY{l+m+mi}{100}\PY{o}{*}\PY{n}{i}\PY{o}{/}\PY{n}{X\PYZus{}all}\PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S1/S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{n}{dicts} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{ref\PYZus{}dicts} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{ref} \PY{o}{=} \PY{n}{X\PYZus{}all}\PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S1/S2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{S1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{X\PYZus{}all}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{by}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{dicts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{get\PYZus{}ep\PYZus{}feature\PYZus{}dict}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{ref\PYZus{}dicts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{get\PYZus{}ep\PYZus{}feature\PYZus{}dict}\PY{p}{(}\PY{n}{ref}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS1\PYZhy{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{dicts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{get\PYZus{}ep\PYZus{}feature\PYZus{}dict}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS3\PYZhy{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS3\PYZhy{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{ref\PYZus{}dicts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{get\PYZus{}ep\PYZus{}feature\PYZus{}dict}\PY{p}{(}\PY{n}{ref}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS3\PYZhy{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS3\PYZhy{}4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{dicts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{get\PYZus{}ep\PYZus{}feature\PYZus{}dict}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS5\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS5\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              \PY{n}{ref\PYZus{}dicts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{get\PYZus{}ep\PYZus{}feature\PYZus{}dict}\PY{p}{(}\PY{n}{ref}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS5\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CS5\PYZhy{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+              
+              \PY{n}{feature\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{d}\PY{p}{,} \PY{n}{d\PYZus{}ref} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{dicts}\PY{p}{,} \PY{n}{ref\PYZus{}dicts}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{o+ow}{in} \PY{n}{d}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{feature\PYZus{}dict}\PY{p}{[}\PY{n}{k}\PY{p}{]} \PY{o}{=} \PY{n}{v} \PY{o}{\PYZhy{}} \PY{n}{d\PYZus{}ref}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{k}\PY{p}{)}
+                  
+              \PY{n}{feature\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{feature\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{feature\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{feature\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+              \PY{n}{feature\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}     for d in dicts:}
+          \PY{c+c1}{\PYZsh{}         for k, v in d.items():}
+          \PY{c+c1}{\PYZsh{}             feature\PYZus{}dict[k] = v }
+                      
+              \PY{n}{X\PYZus{}feature\PYZus{}dicts}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{feature\PYZus{}dict}\PY{p}{)}
+              
+          \PY{n}{X\PYZus{}features} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{X\PYZus{}feature\PYZus{}dicts}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'Extracting Features: 100.0%'
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{c+c1}{\PYZsh{} Perform training test split on patients. i.e., 3 patients in the test set and 7 in training.}
+          \PY{n}{patient\PYZus{}nums} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{)}\PY{p}{)}
+          \PY{n}{patient\PYZus{}nums}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)} \PY{c+c1}{\PYZsh{} Forget patient 7 for now}
+          \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{patient\PYZus{}nums}\PY{p}{)}
+          
+          \PY{n}{test\PYZus{}patients} \PY{o}{=} \PY{n}{patient\PYZus{}nums}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}
+          \PY{n}{training\PYZus{}patients} \PY{o}{=} \PY{n}{patient\PYZus{}nums}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}
+          \PY{n}{training\PYZus{}patients} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{training\PYZus{}patients}\PY{p}{]}
+          \PY{n}{test\PYZus{}patients} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{test\PYZus{}patients}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{training\PYZus{}patients}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['8', '10', '3', '1', '2', '6', '9']
+['9', '4', '5']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{X\PYZus{}training} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{training\PYZus{}patients}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}training} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{training\PYZus{}patients}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{info\PYZus{}training} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{training\PYZus{}patients}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          
+          \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{info\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Remove augmented data from test set.}
+          \PY{n}{X\PYZus{}test\PYZus{}real} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}real} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{info\PYZus{}test\PYZus{}real} \PY{o}{=} \PY{n}{X\PYZus{}features}\PY{p}{[}\PY{p}{(}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{X\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:} 86
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{k}{def} \PY{n+nf}{print\PYZus{}cm}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{hide\PYZus{}zeroes}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{hide\PYZus{}diagonal}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{hide\PYZus{}threshold}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}pretty print for confusion matrixes\PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{columnwidth} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{labels}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 5 is value length}
+              \PY{n}{empty\PYZus{}cell} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{n}{columnwidth}
+              
+              \PY{c+c1}{\PYZsh{} Begin CHANGES}
+              \PY{n}{fst\PYZus{}empty\PYZus{}cell} \PY{o}{=} \PY{p}{(}\PY{n}{columnwidth}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{*} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t/p}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{p}{(}\PY{n}{columnwidth}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{*} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}
+              
+              \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{fst\PYZus{}empty\PYZus{}cell}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{empty\PYZus{}cell}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{fst\PYZus{}empty\PYZus{}cell} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{empty\PYZus{}cell}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{fst\PYZus{}empty\PYZus{}cell}\PY{p}{)}\PY{p}{)} \PY{o}{+} \PY{n}{fst\PYZus{}empty\PYZus{}cell}
+              \PY{c+c1}{\PYZsh{} Print header}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{fst\PYZus{}empty\PYZus{}cell}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} End CHANGES}
+              
+              \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{n}{labels}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{columnwidth}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{label}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+              \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{} Print rows}
+              \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{label1} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{    }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{columnwidth}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{label1}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{labels}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{cell} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{.1f}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{columnwidth}\PY{p}{)} \PY{o}{\PYZpc{}} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}
+                      \PY{k}{if} \PY{n}{hide\PYZus{}zeroes}\PY{p}{:}
+                          \PY{n}{cell} \PY{o}{=} \PY{n}{cell} \PY{k}{if} \PY{n+nb}{float}\PY{p}{(}\PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]}\PY{p}{)} \PY{o}{!=} \PY{l+m+mi}{0} \PY{k}{else} \PY{n}{empty\PYZus{}cell}
+                      \PY{k}{if} \PY{n}{hide\PYZus{}diagonal}\PY{p}{:}
+                          \PY{n}{cell} \PY{o}{=} \PY{n}{cell} \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{n}{j} \PY{k}{else} \PY{n}{empty\PYZus{}cell}
+                      \PY{k}{if} \PY{n}{hide\PYZus{}threshold}\PY{p}{:}
+                          \PY{n}{cell} \PY{o}{=} \PY{n}{cell} \PY{k}{if} \PY{n}{cm}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{j}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{hide\PYZus{}threshold} \PY{k}{else} \PY{n}{empty\PYZus{}cell}
+                      \PY{n+nb}{print}\PY{p}{(}\PY{n}{cell}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Results of Classifiers on Augmented
+data}\label{results-of-classifiers-on-augmented-data}
+
+By creating augmented fractionated examples, the XGBoost classifier's
+false negative rate improves significantly! Other classifiers are unable
+to distinginguish between the examples.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{c+c1}{\PYZsh{} Get cross validation scores on training data, following by test score.}
+          \PY{k+kn}{import} \PY{n+nn}{warnings}
+          \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{models} \PY{o}{=} \PY{p}{(}\PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{naive\PYZus{}bayes}\PY{o}{.}\PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{neighbors}\PY{o}{.}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{gaussian\PYZus{}process}\PY{o}{.}\PY{n}{GaussianProcessClassifier}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{o}{*}\PY{n}{RBF}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{xgboost}\PY{o}{.}\PY{n}{XGBClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{model\PYZus{}names} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SVM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Naive Bayes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{KNN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cross validation scores:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{model\PYZus{}name} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{model\PYZus{}names}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{X\PYZus{}training}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y\PYZus{}training}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Test scores including augmented data:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{model\PYZus{}name} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{model\PYZus{}names}\PY{p}{)}\PY{p}{:}
+              \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}training}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y\PYZus{}training}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+              \PY{n}{predictions} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+              \PY{n}{cm} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+              \PY{n}{print\PYZus{}cm}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{info\PYZus{}test}\PY{p}{[}\PY{n}{model\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{predictions}
+              
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Test scores on only real data:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{model\PYZus{}name} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{models}\PY{p}{,} \PY{n}{model\PYZus{}names}\PY{p}{)}\PY{p}{:}
+              \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}training}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y\PYZus{}training}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{clf}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}real}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{y\PYZus{}test\PYZus{}real}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+              \PY{n}{predictions\PYZus{}real} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}real}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+              \PY{n}{cm} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}real}\PY{p}{,} \PY{n}{predictions\PYZus{}real}\PY{p}{)}
+              \PY{n}{print\PYZus{}cm}\PY{p}{(}\PY{n}{cm}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{info\PYZus{}test\PYZus{}real}\PY{p}{[}\PY{n}{model\PYZus{}name} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{predictions\PYZus{}real}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cross validation scores:
+SVM
+[0.66666667 0.66666667 0.66666667]
+Naive Bayes
+[0.91304348 0.89855072 0.95652174]
+KNN
+[0.71014493 0.39130435 0.68115942]
+GP
+[0.33333333 0.33333333 0.33333333]
+XGBoost
+[0.82608696 0.91304348 0.92753623]
+
+Test scores including augmented data:
+SVM
+0.8023255813953488
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated              9.0             17.0 
+        Fractionated              0.0             60.0 
+Naive Bayes
+0.9883720930232558
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             25.0              1.0 
+        Fractionated              0.0             60.0 
+KNN
+0.686046511627907
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             22.0              4.0 
+        Fractionated             23.0             37.0 
+GP
+0.4418604651162791
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             26.0              0.0 
+        Fractionated             48.0             12.0 
+XGBoost
+0.9767441860465116
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             24.0              2.0 
+        Fractionated              0.0             60.0 
+
+Test scores on only real data:
+SVM
+0.5277777777777778
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated              9.0             17.0 
+        Fractionated              0.0             10.0 
+Naive Bayes
+0.9722222222222222
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             25.0              1.0 
+        Fractionated              0.0             10.0 
+KNN
+0.7777777777777778
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             22.0              4.0 
+        Fractionated              4.0              6.0 
+GP
+0.7777777777777778
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             26.0              0.0 
+        Fractionated              8.0              2.0 
+XGBoost
+0.9444444444444444
+           t/p       Not Fractionated     Fractionated 
+    Not Fractionated             24.0              2.0 
+        Fractionated              0.0             10.0 
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{feature\PYZus{}names} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{columns}
+          \PY{c+c1}{\PYZsh{} Separating out the features}
+          \PY{n}{x} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{feature\PYZus{}names}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+          \PY{n}{x\PYZus{}real} \PY{o}{=} \PY{n}{X\PYZus{}test\PYZus{}real}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{feature\PYZus{}names}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+          
+          \PY{c+c1}{\PYZsh{} Separating out the labels}
+          \PY{n}{labels} \PY{o}{=} \PY{n}{info\PYZus{}test}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+          \PY{n}{labels\PYZus{}real} \PY{o}{=} \PY{n}{info\PYZus{}test\PYZus{}real}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+          
+          
+          \PY{c+c1}{\PYZsh{} Seperating out the predicitons}
+          \PY{n}{predictions} \PY{o}{=} \PY{n}{info\PYZus{}test}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost Predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{predictions\PYZus{}real} \PY{o}{=} \PY{n}{info\PYZus{}test\PYZus{}real}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost Predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Standardizing the features}
+          \PY{n}{x} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{x\PYZus{}real} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x\PYZus{}real}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{principal\PYZus{}components} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n}{principal\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{principal\PYZus{}components}
+                       \PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{final\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{principal\PYZus{}df}\PY{p}{,} \PY{n}{info\PYZus{}test}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{pca\PYZus{}real} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{principal\PYZus{}components\PYZus{}real} \PY{o}{=} \PY{n}{pca}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{x\PYZus{}real}\PY{p}{)}
+          \PY{n}{principal\PYZus{}df\PYZus{}real} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{principal\PYZus{}components\PYZus{}real}
+                       \PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{final\PYZus{}df\PYZus{}real} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{principal\PYZus{}df\PYZus{}real}\PY{p}{,} \PY{n}{info\PYZus{}test\PYZus{}real}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:}    principal component 1  principal component 2  index  Label Patient Type  \textbackslash{}
+          0               3.939198              -1.269879     43    0.0       4   af   
+          1               3.673622              -1.941577     44    0.0       4   af   
+          2               3.873013              -1.888878     45    0.0       4   af   
+          3               3.965131              -1.775633     46    0.0       4   af   
+          4               3.808105              -1.661518     47    0.0       4   af   
+          
+            Coupling Interval  Augmented  SVM Predictions  Naive Bayes Predictions  \textbackslash{}
+          0               340          0              1.0                      0.0   
+          1               330          0              1.0                      0.0   
+          2               320          0              1.0                      0.0   
+          3               310          0              1.0                      0.0   
+          4               300          0              1.0                      0.0   
+          
+             KNN Predictions  GP Predictions  XGBoost Predictions  
+          0              1.0             0.0                  0.0  
+          1              0.0             0.0                  0.0  
+          2              1.0             0.0                  0.0  
+          3              0.0             0.0                  0.0  
+          4              0.0             0.0                  0.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} 
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 component PCA \PYZhy{} True Labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{augmented} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{markers} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{label}\PY{p}{,} \PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{labels}\PY{p}{,}\PY{n}{colors}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{aug} \PY{o+ow}{in} \PY{n}{augmented}\PY{p}{:}
+                  \PY{n}{idx\PYZus{}to\PYZus{}keep} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{o}{==} \PY{n}{label}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{aug}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{ax1}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{color}
+                             \PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{n}{markers}\PY{p}{[}\PY{n}{aug}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{edgecolors} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}
+                             \PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 component PCA \PYZhy{} XGBoost Predicted Labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{predictions} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{prediction}\PY{p}{,} \PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{predictions}\PY{p}{,}\PY{n}{colors}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{aug} \PY{o+ow}{in} \PY{n}{augmented}\PY{p}{:}
+                  \PY{n}{idx\PYZus{}to\PYZus{}keep} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost Predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{o}{==} \PY{n}{prediction}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{aug}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{color}
+                             \PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{n}{markers}\PY{p}{[}\PY{n}{aug}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{edgecolors} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}
+                             \PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Results for Entire Test Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} 
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 component PCA \PYZhy{} True Labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{augmented} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{markers} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{label}\PY{p}{,} \PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{labels}\PY{p}{,}\PY{n}{colors}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{aug} \PY{o+ow}{in} \PY{n}{augmented}\PY{p}{:}
+                  \PY{n}{idx\PYZus{}to\PYZus{}keep} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{final\PYZus{}df\PYZus{}real}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{o}{==} \PY{n}{label}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{final\PYZus{}df\PYZus{}real}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{aug}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{ax1}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{final\PYZus{}df\PYZus{}real}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{final\PYZus{}df\PYZus{}real}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{color}
+                             \PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{n}{markers}\PY{p}{[}\PY{n}{aug}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{edgecolors} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}
+                             \PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax1}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 component PCA \PYZhy{} XGBoost Predicted Labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{predictions} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{prediction}\PY{p}{,} \PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{predictions}\PY{p}{,}\PY{n}{colors}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{aug} \PY{o+ow}{in} \PY{n}{augmented}\PY{p}{:}
+                  \PY{n}{idx\PYZus{}to\PYZus{}keep} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{final\PYZus{}df\PYZus{}real}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost Predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{o}{==} \PY{n}{prediction}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{final\PYZus{}df\PYZus{}real}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Augmented}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{aug}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{ax2}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{final\PYZus{}df\PYZus{}real}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{final\PYZus{}df\PYZus{}real}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{color}
+                             \PY{p}{,} \PY{n}{marker} \PY{o}{=} \PY{n}{markers}\PY{p}{[}\PY{n}{aug}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{edgecolors} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}
+                             \PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (NA)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated (A)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax2}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Results for Real Test Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{patient} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{test\PYZus{}patients}\PY{p}{)}\PY{p}{:}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 component PCA \PYZhy{} True Labels, Patient }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{patient}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Principal Component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2 component PCA \PYZhy{} Predicted Labels, Patient }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{patient}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{)}
+              \PY{n}{pca\PYZus{}patient} \PY{o}{=} \PY{n}{final\PYZus{}df\PYZus{}real}\PY{p}{[}\PY{n}{final\PYZus{}df\PYZus{}real}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Patient}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{n}{patient}\PY{p}{]}
+              \PY{k}{for} \PY{n}{label}\PY{p}{,} \PY{n}{color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{labels}\PY{p}{,}\PY{n}{colors}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{idx\PYZus{}to\PYZus{}keep} \PY{o}{=} \PY{p}{(}\PY{n}{pca\PYZus{}patient}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{o}{==} \PY{n}{label}\PY{p}{)}
+                  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{pca\PYZus{}patient}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{pca\PYZus{}patient}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                             \PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{color}
+                             \PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+                  
+                  \PY{n}{idx\PYZus{}to\PYZus{}keep} \PY{o}{=} \PY{p}{(}\PY{n}{pca\PYZus{}patient}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost Predictions}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values} \PY{o}{==} \PY{n}{label}\PY{p}{)}
+                  \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{pca\PYZus{}patient}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                         \PY{p}{,} \PY{n}{pca\PYZus{}patient}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                         \PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{color}
+                         \PY{p}{,} \PY{n}{s} \PY{o}{=} \PY{l+m+mi}{50}\PY{p}{)}
+                  
+                  \PY{k}{for} \PY{n}{\PYZus{}}\PY{p}{,}\PY{n}{row} \PY{o+ow}{in} \PY{n}{pca\PYZus{}patient}\PY{p}{[}\PY{n}{idx\PYZus{}to\PYZus{}keep}\PY{p}{]}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                          \PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                      
+                      \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{annotate}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coupling Interval}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                          \PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{principal component 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                  
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Not Fractionated}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n}{axes}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{p}{)}
+              
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Individual Test Patient Response Mapping}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
