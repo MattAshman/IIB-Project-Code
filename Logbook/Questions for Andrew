@@ -1,0 +1,4 @@
+Questions to ask:
+What are the signs of fractionation? Can Andrew detect fractionation in the different patients? (Show data from first file of each patient (i.e. a01, b01, c01) using display_data.py. If, for a given patient, he claims to be able to see it in a particular channel then compare that channel across all input files for that same patient using display_channel.py. (For example, look at the variation across the same channel for the files of patient b. Why are they so different?).
+Why does the signal look so different patient to patient? Use compare_channel.py to compare the same channel for two different patients. (For example compare channel CS3-4 across patients 'a' and 'g'. What is going on?).
+Does channel 9-10 (same as channel CSp) show the moment at which S1/S2 pulses are delivered? (This is so we can use this cannel for pulse detection).

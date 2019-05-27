@@ -1,0 +1,8 @@
+Options for dataset00
+dispay_data: Display the data contained in a specified file. For example, to display the data contained in file '4' of patient 'e' type 'e04'.
+display_channel: Display the data for a single channel across all files for a specified patient.
+compare_patients: Display the data for a single channel across all files for two patients.
+
+Options for dataset01:
+display_data: Display the data contained in a specified file.
+display_channel: Display the data for a single channel across all files. Interesting channels are 'H 1-2' and 'H 3-4'.
